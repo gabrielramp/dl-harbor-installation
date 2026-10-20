@@ -1,0 +1,32 @@
+vault_announcements:
+  # these are 1 minute behind actual vault times, as a 'heads up' announcement like dl_midtown's rift.
+  at_match_minutes: [9, 17]
+  title: "A vault is opening soon..."
+  subtext: "The lighthouse shines upon it"
+
+midboss:
+  health_percent_of_stock: 40
+
+lane_troopers:
+  soul_value_percent_of_stock: 200
+  spawn_wave_schedule:
+    - from_match_minute: 0
+      seconds_between_waves: 20
+    - from_match_minute: 20
+      seconds_between_waves: 20
+    - from_match_minute: 35
+      seconds_between_waves: 20
+
+neutral_troopers:
+  soul_value_percent_of_stock: 200
+
+sinners_sacrifice:
+  soul_value_percent_of_stock: 200
+
+breakables:
+  soul_value_percent_of_stock: 200
+  # this is 'at least' because tough boxes should always have 100% chance.
+  drop_chance_percent_at_least: 75
+
+corrupted_broker:
+  opens_at_match_minutes: [15, 19]

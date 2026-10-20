@@ -1,0 +1,41 @@
+name: Build installers
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Release tag to rebuild
+        required: true
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: windows-latest
+    env:
+      TAG: ${{ github.event.release.tag_name || inputs.tag }}
+      GH_TOKEN: ${{ github.token }}
+      INNO_URL: https://github.com/jrsoftware/issrc/releases/download/is-6_7_3/innosetup-6.7.3.exe
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Fetch the map from the release
+        shell: pwsh
+        run: gh release download $env:TAG --pattern dl_harbor.vpk --dir payload
+
+      - name: Install Inno Setup
+        shell: pwsh
+        run: |
+          Invoke-WebRequest $env:INNO_URL -OutFile innosetup.exe
+          Start-Process .\innosetup.exe -ArgumentList '/VERYSILENT', '/SUPPRESSMSGBOXES', '/NORESTART', '/SP-' -Wait
+
+      - name: Build the installers
+        shell: pwsh
+        run: ./build.ps1
+
+      - name: Attach the installers to the release
+        shell: pwsh
+        run: gh release upload $env:TAG Output/Client-Setup.exe Output/Server-Setup.exe --clobber
