@@ -2,4 +2,4 @@
 
 <h1 align="center">dl_harbor</h1>
 
-placeholder README content. all installer code made by @jetsetworm haha yeah he's the best. download the Harbor setup wizard from the [Releases page](../../releases)
+placeholder README content. all installer code made by @jetsetworm on twitter haha yeah he's the best. download the Harbor setup wizard from the [Releases page](../../releases)
